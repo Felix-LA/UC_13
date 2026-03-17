@@ -1,17 +1,15 @@
 import mysql.connector
 
 def conectar():
-    """Estabelece conexão com o servidor MySQL."""
+    # Estabelece conexão com o servidor MySQL.
     return mysql.connector.connect(
         host="localhost",
-        user="root",      # Seu usuário do MySQL
-        password="",      # Sua senha do MySQL
+        user="root",
+        password="",
         database="crud_usuario"
     )
 
 def criar_banco_e_tabela():
-    """Cria o banco de dados e a tabela caso não existam."""
-    # Conexão inicial sem banco definido para criar o DB primeiro
     conn = mysql.connector.connect(host="localhost", user="root", password="")
     cursor = conn.cursor()
     cursor.execute("CREATE DATABASE IF NOT EXISTS crud_usuario")
@@ -44,11 +42,11 @@ def listar_usuarios():
     conn.close()
     return dados
 
-def atualizar_usuario(id_usuario, nome, email, endereco):
+def atualizar_usuario(id, nome, email, endereco):
     conn = conectar()
     cursor = conn.cursor()
     sql = "UPDATE usuario SET nome=%s, email=%s, endereco=%s WHERE id=%s"
-    cursor.execute(sql, (nome, email, endereco, id_usuario))
+    cursor.execute(sql, (nome, email, endereco, id))
     conn.commit()
     conn.close()
 
@@ -60,5 +58,4 @@ def excluir_usuario(id):
     conn.commit()
     conn.close()
 
-# Inicializa o MySQL
 criar_banco_e_tabela()

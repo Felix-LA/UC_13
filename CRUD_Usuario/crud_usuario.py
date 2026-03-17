@@ -29,12 +29,12 @@ def editar_usuario():
         messagebox.showwarning("Aviso", "Selecionar um Usuário")
         return
     
-    id_usuario = input_id.get()
+    id = input_id.get()
     nome = input_nome.get()
     email = input_email.get()
     endereco = input_endereco.get()
 
-    database.atualizar_usuario(id_usuario, nome, email, endereco)
+    database.atualizar_usuario(id, nome, email, endereco)
     limpar_campos()
     atualizar_tabela()
 
@@ -45,11 +45,11 @@ def deletar_usuario():
         return
     
     valores = tabela.item(selecionado, "values")
-    id_usuario = valores[0]
+    id = valores[0]
     
     reposta = messagebox.askyesno("Aviso","Deseja Deletar o Usuário")
     if reposta:
-        database.excluir_usuario(id_usuario)
+        database.excluir_usuario(id)
         limpar_campos()
         atualizar_tabela()
 
@@ -111,4 +111,5 @@ tabela.pack(fill="both", expand=True, padx=20, pady=20)
 tabela.bind("<<TreeviewSelect>>", selecionar_usuario)
 
 atualizar_tabela()
+
 janela.mainloop()
